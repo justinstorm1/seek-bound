@@ -116,6 +116,14 @@ export const Eye = (p: IconProps) => (
   </Base>
 );
 
+export const EyeOff = (p: IconProps) => (
+  <Base {...p}>
+    <Path d="M9.9 5.2A10.4 10.4 0 0 1 12 5c6.5 0 10 7 10 7a17.5 17.5 0 0 1-3.2 4.2M6.6 6.6C3.9 8.3 2 12 2 12s3.5 7 10 7a10.4 10.4 0 0 0 4.2-.9" />
+    <Path d="M9.9 14.1a3 3 0 0 0 4.2-4.2" />
+    <Line x1="2" y1="2" x2="22" y2="22" />
+  </Base>
+);
+
 export const Run = (p: IconProps) => (
   <Base {...p}>
     <Circle cx="13" cy="4" r="2" />

@@ -1,8 +1,9 @@
 import { useAuthActions } from '@convex-dev/auth/react';
+import { useQuery } from 'convex/react';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { makeRedirectUri } from 'expo-auth-session';
 import { Image } from 'expo-image';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useState } from 'react';
 import {
@@ -24,6 +25,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { api } from '../../../convex/_generated/api';
 import { darkColors, lightColors } from '../../../utils/theme';
 import { FadeInView, PressableScale, Pulse } from '../../components/anim';
 import { MapPin, QrCode, Users } from '../../components/icons';
@@ -50,6 +52,7 @@ export default function SignIn() {
   const isSigningIn = pending !== null;
 
   const { signIn } = useAuthActions();
+  const flags = useQuery(api.config.flags);
 
   const signInWithOAuth = async (provider: OAuthProvider) => {
     if (isSigningIn) return;
@@ -217,6 +220,19 @@ export default function SignIn() {
               iconSource={GOOGLE_ICON}
             />
           </FadeInView>
+          {flags?.showingEmailLogin ? (
+            <FadeInView delay={620}>
+              <PressableScale
+                onPress={() => router.push('/reviewer-login')}
+                className="items-center"
+                style={{ paddingVertical: 6 }}
+              >
+                <Text style={{ color: theme.textSecondary, fontSize: 13, fontWeight: '600' }}>
+                  Login for App Reviewer
+                </Text>
+              </PressableScale>
+            </FadeInView>
+          ) : null}
           <Animated.Text
             entering={FadeIn.delay(720).duration(500)}
             className="text-center"

@@ -1,6 +1,7 @@
 import Apple from "@auth/core/providers/apple";
 import Google from "@auth/core/providers/google";
 import { ConvexCredentials } from "@convex-dev/auth/providers/ConvexCredentials";
+import { Password } from "@convex-dev/auth/providers/Password";
 import { convexAuth, createAccount, retrieveAccount } from "@convex-dev/auth/server";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 
@@ -55,6 +56,16 @@ export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
           email: googleInfo.email,
           image: googleInfo.picture,
         };
+      },
+    }),
+    // Email+password sign-in for App Store / Play Store reviewers, who can't
+    // get past the NJIT-only Google restriction. Hidden behind the
+    // `SHOWING_EMAIL_LOGIN` flag client-side; still subject to the same
+    // `assertAllowedEmail` allowlist server-side either way.
+    Password({
+      profile(params) {
+        assertAllowedEmail(params.email);
+        return { email: params.email as string };
       },
     }),
     // Native "Sign in with Apple" (expo-apple-authentication). The client gets an
