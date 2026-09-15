@@ -12,13 +12,14 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.justinstorm1.hideandseek",
       "appleTeamId": "5F6867XG3V",
-      "buildNumber": "5"
+      "buildNumber": "6"
     },
     "android": {
       "icon": "./assets/images/seekboundicon.png",
       "predictiveBackGestureEnabled": false,
       "package": "com.justinstorm1.hideandseek",
       "googleServicesFile": "./google-services.json",
+      "versionCode": 2,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyC-D9LMoginQAZXhburNjqMQeSwUyNbYW8"
