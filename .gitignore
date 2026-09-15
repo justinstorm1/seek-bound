@@ -18,6 +18,10 @@ expo-env.d.ts
 *.key
 *.mobileprovision
 
+# Firebase Admin SDK service account keys (uploaded to EAS, never committed).
+# google-services.json is NOT this — that one is a client config, safe to commit.
+*firebase-adminsdk*.json
+
 # Metro
 .metro-health-check*
 
@@ -32,6 +36,10 @@ yarn-error.*
 
 # local env files
 .env*.local
+# ...except the prod Convex URL override: it must outrank the dev URL that
+# `npx convex dev` writes into .env.local, and it holds only public EXPO_PUBLIC_
+# values, so it is committed and shared across build machines.
+!.env.production.local
 
 # typescript
 *.tsbuildinfo

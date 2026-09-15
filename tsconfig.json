@@ -9,12 +9,19 @@
       "@/assets/*": [
         "./assets/*"
       ]
-    }
+    },
+    "types": ["node"]
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "utils/tailwind.config.js",
+    "nativewind-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "example"
   ]
 }

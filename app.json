@@ -1,42 +1,124 @@
 {
   "expo": {
-    "name": "hideandseek",
+    "name": "SeekBound",
     "slug": "hideandseek",
-    "version": "1.0.0",
+    "version": "1.0.4",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/seekboundicon.png",
     "scheme": "hideandseek",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/images/seekboundicon.png",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.justinstorm1.hideandseek",
+      "appleTeamId": "5F6867XG3V",
+      "buildNumber": "5"
     },
     "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      "icon": "./assets/images/seekboundicon.png",
+      "predictiveBackGestureEnabled": false,
+      "package": "com.justinstorm1.hideandseek",
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC-D9LMoginQAZXhburNjqMQeSwUyNbYW8"
+        }
       },
-      "predictiveBackGestureEnabled": false
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_BACKGROUND_LOCATION",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      "./plugins/withUiSceneLifecycle",
+      "expo-apple-authentication",
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "backgroundColor": "#0A3D16",
+          "image": "./assets/images/seekboundicon-rounded.png",
+          "imageWidth": 220,
+          "resizeMode": "contain",
+          "dark": {
+            "backgroundColor": "#07120D",
+            "image": "./assets/images/seekboundicon-rounded.png",
+            "imageWidth": 220
+          }
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.912803842720-mf9fnkpnrljtl6kepjui3ecaatd1mu0e"
+        }
+      ],
+      "expo-sqlite",
+      [
+        "expo-maps",
+        {
+          "requestLocationPermission": true,
+          "locationPermission": "Allow $(PRODUCT_NAME) to use your location to show your position on the map"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location to show your position on the map",
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to share your location with other players during a game, even when the app is in the background.",
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": true,
+          "isAndroidForegroundServiceEnabled": true
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to use the camera to scan other players' QR codes"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos to set a profile picture"
+        }
+      ],
+      "expo-web-browser",
+      "expo-image",
+      [
+        "expo-notifications",
+        {
+          "color": "#2ECC71"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "93a8287c-1a21-44bb-b9b6-9daffe9df8fb"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/93a8287c-1a21-44bb-b9b6-9daffe9df8fb",
+      "requestHeaders": {
+        "expo-channel-name": "production"
+      }
     }
   }
 }
