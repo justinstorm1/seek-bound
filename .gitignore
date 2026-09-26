@@ -19,8 +19,11 @@ expo-env.d.ts
 *.mobileprovision
 
 # Firebase Admin SDK service account keys (uploaded to EAS, never committed).
-# google-services.json is NOT this — that one is a client config, safe to commit.
 *firebase-adminsdk*.json
+
+# Firebase Android client config — recreate on each build machine, EAS holds the
+# credentials it needs separately.
+google-services.json
 
 # Metro
 .metro-health-check*
@@ -36,6 +39,9 @@ yarn-error.*
 
 # env files — none of these are committed; recreate them on each build machine
 .env*
+
+# App config — has the Google Maps API key inline; recreate on each build machine.
+app.json
 
 # typescript
 *.tsbuildinfo
