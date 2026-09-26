@@ -34,12 +34,8 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env files
-.env*.local
-# ...except the prod Convex URL override: it must outrank the dev URL that
-# `npx convex dev` writes into .env.local, and it holds only public EXPO_PUBLIC_
-# values, so it is committed and shared across build machines.
-!.env.production.local
+# env files — none of these are committed; recreate them on each build machine
+.env*
 
 # typescript
 *.tsbuildinfo

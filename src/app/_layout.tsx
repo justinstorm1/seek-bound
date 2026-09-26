@@ -42,7 +42,7 @@ function InitialLayout() {
             <Stack.Screen name="profile-setup" />
           </Stack.Protected>
           <Stack.Protected guard={isAuthenticated && !needsProfile}>
-            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="(tabs)" options={{ headerTitle: "" }} />
             <Stack.Screen name="createGame" options={{ headerShown: true, headerBackButtonDisplayMode: 'minimal', headerBackTitle: "Home" }} />
             <Stack.Screen name="join" options={{ headerShown: true, presentation: 'modal' }} />
             <Stack.Screen name="scan-join" options={{ presentation: 'fullScreenModal' }} />

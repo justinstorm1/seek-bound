@@ -1,7 +1,7 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Linking, Pressable, Text, View } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -47,23 +47,46 @@ export function QrScanner({ onScan, title, hint, scanKey = 0 }: Props) {
 
   if (!permission.granted) {
     return (
-      <View
-        className="flex-1 items-center justify-center px-8 gap-4"
-        style={{ backgroundColor: theme.background }}
-      >
-        <View
-          className="items-center justify-center rounded-3xl"
-          style={{ width: 64, height: 64, backgroundColor: theme.surfaceSecondary }}
+      <View className="flex-1" style={{ backgroundColor: theme.background }}>
+        <Pressable
+          onPress={() => router.back()}
+          className="absolute items-center justify-center rounded-full"
+          style={{
+            top: insets.top + 12,
+            left: 16,
+            width: 40,
+            height: 40,
+            backgroundColor: theme.surfaceSecondary,
+          }}
         >
-          <Camera size={26} color={theme.textSecondary} />
+          <X size={20} color={theme.text} />
+        </Pressable>
+
+        <View className="flex-1 items-center justify-center px-8 gap-4">
+          <View
+            className="items-center justify-center rounded-3xl"
+            style={{ width: 64, height: 64, backgroundColor: theme.surfaceSecondary }}
+          >
+            <Camera size={26} color={theme.textSecondary} />
+          </View>
+          <Text className="text-xl font-bold text-center" style={{ color: theme.text }}>
+            Camera access needed
+          </Text>
+          <Text className="text-center" style={{ color: theme.textSecondary }}>
+            {hint}
+          </Text>
+          <Text className="text-center" style={{ color: theme.textTertiary, fontSize: 12.5 }}>
+            SeekBound only uses your camera to scan QR codes — nothing is ever recorded or stored.
+          </Text>
+          <Button label="Continue" onPress={requestPermission} />
+          {permission.status === 'denied' ? (
+            <Pressable onPress={() => Linking.openSettings()}>
+              <Text className="text-center" style={{ color: theme.primary, fontWeight: '600' }}>
+                Open SeekBound in Settings
+              </Text>
+            </Pressable>
+          ) : null}
         </View>
-        <Text className="text-xl font-bold text-center" style={{ color: theme.text }}>
-          Camera access needed
-        </Text>
-        <Text className="text-center" style={{ color: theme.textSecondary }}>
-          {hint}
-        </Text>
-        <Button label="Allow camera" onPress={requestPermission} />
       </View>
     );
   }

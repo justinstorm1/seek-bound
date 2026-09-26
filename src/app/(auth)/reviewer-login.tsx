@@ -12,7 +12,7 @@ import { Card, Field, Screen, TextField, useTheme } from '../../components/ui';
  * the `SHOWING_EMAIL_LOGIN` remote flag. The account still has to be an
  * allowlisted email server-side (`AUTH_ALLOWED_EXTRA_EMAILS`) regardless.
  *
- * Sign-in only — the account itself is provisioned separately, not from here.
+ * Sign-in only — no account creation from here.
  */
 export default function ReviewerLogin() {
   const { theme } = useTheme();

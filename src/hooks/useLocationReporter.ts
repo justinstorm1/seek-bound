@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { api } from '../../convex/_generated/api';
 import { Id } from '../../convex/_generated/dataModel';
 import { startBackgroundLocation, stopBackgroundLocation } from '../lib/backgroundLocation';
+import { confirmBackgroundLocationDisclosure } from '../lib/locationDisclosure';
 
 export type LiveLocation = {
   latitude: number;
@@ -105,11 +106,19 @@ export function useLocationReporter({
 
     let cancelled = false;
     (async () => {
-      // Ask for "Always". Start regardless of the answer: on iOS the task runs
-      // foreground-only with "When in Use" and iOS prompts to upgrade later; on
-      // Android `startLocationUpdatesAsync` throws without it and is caught.
+      // Ask for "Always" if we don't already have it — showing our own
+      // disclosure first (Play/App Store require this before the OS prompt).
+      // Start regardless of the outcome: on iOS the task runs foreground-only
+      // with "When in Use" and iOS prompts to upgrade later; on Android
+      // `startLocationUpdatesAsync` throws without it and is caught.
       try {
-        await Location.requestBackgroundPermissionsAsync();
+        const current = await Location.getBackgroundPermissionsAsync();
+        if (current.status !== 'granted' && current.canAskAgain) {
+          await confirmBackgroundLocationDisclosure();
+          if (!cancelled) {
+            await Location.requestBackgroundPermissionsAsync();
+          }
+        }
       } catch {
         // ignore — proceed to start anyway
       }

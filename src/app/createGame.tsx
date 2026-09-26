@@ -32,6 +32,7 @@ import {
   PING_OPTIONS,
   SEEKER_OPTIONS,
 } from '../lib/game';
+import { confirmForegroundLocationDisclosure } from '../lib/locationDisclosure';
 
 // Simulators / cold GPS often reject getCurrentPositionAsync (kCLErrorDomain 0).
 async function getInitialCoords(): Promise<Coordinates | null> {
@@ -69,8 +70,16 @@ export default function CreateGame() {
     (async () => {
       let granted = false;
       try {
-        const { status } = await Location.requestForegroundPermissionsAsync();
-        granted = status === 'granted';
+        const current = await Location.getForegroundPermissionsAsync();
+        if (current.status === 'granted') {
+          granted = true;
+        } else if (current.canAskAgain) {
+          await confirmForegroundLocationDisclosure();
+          if (!cancelled) {
+            const { status } = await Location.requestForegroundPermissionsAsync();
+            granted = status === 'granted';
+          }
+        }
       } catch {
         granted = false;
       }
