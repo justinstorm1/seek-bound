@@ -43,6 +43,9 @@ yarn-error.*
 # App config — has the Google Maps API key inline; recreate on each build machine.
 app.json
 
+#eas.json
+eas.json
+
 # typescript
 *.tsbuildinfo
 
